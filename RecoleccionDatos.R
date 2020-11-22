@@ -8,3 +8,5 @@ datos_violencia<-lectura("datasets/SIDPOL_2017_Violencia_familiar.csv")
 save(datos_violencia,file = "datasets/DF_violencia.Rda")
 
 load("datasets/DF_violencia.Rda")
+
+

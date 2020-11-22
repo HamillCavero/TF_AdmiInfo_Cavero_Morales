@@ -3,5 +3,6 @@ Trabajo Final de Administración de la información de Cavero Hamill y Morales E
   * Creación de carpeta datasets, con los csv. y el backup de los datos.
   * Creación de save del df y no de la imagen en general
   * Combinación?
+  * Agregando en Preprocesamiento modicación de fechas
 This is a line from RStudio
 
