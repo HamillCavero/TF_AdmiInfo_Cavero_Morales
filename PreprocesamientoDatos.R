@@ -1,3 +1,4 @@
+
 library(lubridate)
 
 limpiar_violencia<-function(df)
@@ -15,6 +16,8 @@ conversion_fecha<-function(df)
   
   return(df)
 }
+
+
 
 
 #BORRAR ID NIVEL EDUCATIVO,nivel educativo,ocupación,CUADRA
