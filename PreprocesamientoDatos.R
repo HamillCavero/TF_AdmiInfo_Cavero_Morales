@@ -15,7 +15,16 @@ conversion_fecha<-function(df)
   
   return(df)
 }
-
+borrar_na<-function(df)
+{
+  dv<-na.omit(df)
+  return(dv)  
+}
+limpiar_edades<-function(df)
+{
+  temporal<-temporal%>%filter(EDAD>8 & EDAD<101 & PERSONA>9999 & ID_PERSONA>9999)  
+  return(temporal)
+}
 
 #Modificando el pais natal de forma correcta#  #REMOVER AYCUCHO# REMOVER REVENTANDOTE,SOLTERO(A),SUDAFRICANA,BORRAR VACIAS
 

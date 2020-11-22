@@ -6,7 +6,9 @@ library(dplyr)
 datos_violencia<-limpiar_violencia(datos_violencia)
 datos_violencia<-conversion_fecha(datos_violencia)
 datos_violencia<-limpieza_paises(datos_violencia)
-
+#ELIMINANDO LOS VALORES NA
+datos_violencia<-borrar_na(datos_violencia)
+datos_violencia<-limpiar_edades(datos_violencia)
 glimpse(datos_violencia)
 
 #1)Cantidad de casos registrados por año y que sean de modalidad violencia fisica#
@@ -35,10 +37,9 @@ casos_totales_por_modalidad<-function(df)
 q2<-casos_totales_por_modalidad(datos_violencia)
 
 #3)Conteo de tipos de denuncias por departamento
-
 group_by_denuncias<-function(df)
 {
-    return(df%>%group_by(DPTO_CIA)%>%summarise(Total=n()))%>%arrange(desc(Total))
+  return(df%>%group_by(DPTO_CIA)%>%summarise(Total=n())%>%arrange(desc(Total)))
 }
 
 q3<-group_by_denuncias(temporal)
@@ -75,5 +76,40 @@ cant_paises<-function(df,cant_top)
 
   }
 }
+
 q5<-cant_paises(temporal,0)
+
+
+#6 Cantidad de casos por edad
+casos_Edad<-function(df)
+{
+  return(df%>%group_by(EDAD)%>%summarise(Total=n())%>%arrange(desc(Total)))
+}
+
+q6<-casos_Edad(temporal)
+
+#7 Cantidad de casos por sexo
+
+casos_sexo<-function(df)
+{
+  return(df%>%group_by(SEXO)%>%summarise(Total=n())%>%arrange(desc(Total)))
+}
+q7<-casos_sexo(temporal)
+
+
+#8 Cantidad de casos registrados por Distrito top
+casos_distritos<-function(df,cant_top)
+{
+  q<-df%>%group_by(DIST_CIA)%>%summarise(Total=n())%>%arrange(desc(Total))
+  
+  if(cant_top==0)
+  {
+    return(q[,c(1,2)])
+  }
+  else{
+    return(q[c(1:cant_top),c(1,2)])
+    
+  }
+}
+q8<-casos_distritos(temporal,5)
 
