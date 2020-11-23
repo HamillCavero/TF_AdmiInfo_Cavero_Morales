@@ -128,4 +128,10 @@ situcion_persona_por_Sexo<-function(df)
 }
 q10<-situcion_persona_por_Sexo(datos_violencia)
 
-#11
+#11 Mes en la que hubo mayor cantidad de violencia,denuncia
+mayor_mes<-function(df)
+{
+  return(df%>%group_by(MES)%>%summarise(Total=n())%>%arrange(desc(Total)))
+}
+
+q11<-mayor_mes(datos_violencia)
