@@ -1,5 +1,4 @@
 datos_vinos<-read.csv(file = "datasets/winequality-white.csv",sep = ";")
-
 ?read.csv
 
 ?corrplot
@@ -29,6 +28,18 @@ O<-cor(semillas)
 corrplot(O)
 plot(semillas)
 
+names(semillas)[1]<-"Area"
+names(semillas)[2]<-"Perimetro"
+names(semillas)[3]<-"Compact"
+names(semillas)[4]<-"largo"
+names(semillas)[5]<-"ancho"
+names(semillas)[6]<-"Coeficiente_de_Asimetria"
+names(semillas)[7]<-"Longitud_semilla"
+names(semillas)[8]<-"Tipo"
+
+
+colnames(semillas)
+
 library(DMwR)
 
 ## Split in train + test set
@@ -37,16 +48,16 @@ trainSemillas <- semillas[idxs,]
 testSemillas <- semillas[-idxs,]
 
 ## A 3-nearest neighbours model with no normalization
-nn3 <- kNN(V8 ~ .,trainSemillas,testSemillas,norm=FALSE,k=3)
+nn3 <- kNN(Tipo ~ .,trainSemillas,testSemillas,norm=FALSE,k=3)
 
 ## The resulting confusion matrix
-table(testSemillas[,'V8'],nn3)
+table(testSemillas[,'Tipo'],nn3)
 
 ## Now a 5-nearest neighbours model with normalization
-nn5 <- kNN(V8 ~ .,trainSemillas,testSemillas,,norm=TRUE,k=5)
+nn5 <- kNN(Tipo ~ .,trainSemillas,testSemillas,,norm=TRUE,k=5)
 
 ## The resulting confusion matrix
-table(testSemillas[,'V8'],nn5)
+table(testSemillas[,'Tipo'],nn5)
 
 
 
