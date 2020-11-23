@@ -137,13 +137,23 @@ mayor_mes<-function(df)
 
 q11<-mayor_mes(datos_violencia)
 
-#12 Busqueda por tipo de semilla
+#12 Cantidad casos por estado civil
 
-tipo_semilla<-function(df)
+estado_civil<-function(df)
 {
-  return(df%>%group_by(Tipo)%>%summarise(Total=n()))
+  return(df%>%group_by(EST_CIVIL)%>%filter(EST_CIVIL!="NULL")%>%summarise(Total=n())%>%arrange(desc(Total)))
 }
-q12<-tipo_semilla(semillas)
+
+q12<-estado_civil(datos_violencia)
+
+#13 Busqueda por tipo de semilla, con mayor area
+
+tipo_semilla<-function(df,area)
+{
+  dv<-df%>%group_by(Tipo,Area)%>%filter(Area>area)%>%select(c(1,8))
+  return(dv)
+}
+q13<-tipo_semilla(semillas,8)
 
 
 
