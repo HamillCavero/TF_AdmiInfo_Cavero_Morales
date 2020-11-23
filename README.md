@@ -5,5 +5,6 @@ Trabajo Final de Administración de la información de Cavero Hamill y Morales E
   * Combinación?
   * Agregando en Preprocesamiento modicación de fechas
   * Gráficos de los querys 2 al 8, sujetos a cambios.
+  * dataset adicional para lm y otras funciones.
 This is a line from RStudio
 
