@@ -6,5 +6,7 @@ Trabajo Final de Administración de la información de Cavero Hamill y Morales E
   * Agregando en Preprocesamiento modicación de fechas
   * Gráficos de los querys 2 al 8, sujetos a cambios.
   * dataset adicional para lm y otras funciones.
+  * reemplazo del dataset de vino por uno de semillas para usar el knn
+  * implementación del knn
 This is a line from RStudio
 

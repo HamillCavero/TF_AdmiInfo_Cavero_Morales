@@ -9,3 +9,44 @@ corrplot(M)
 
 N<-cor(mtcars)
 corrplot(N)
+
+#extraído de
+#http://archive.ics.uci.edu/ml/datasets/seeds
+# Attribute Information:
+#   
+# To construct the data, seven geometric parameters of wheat kernels were measured:
+# 1. area A,
+# 2. perimeter P,
+# 3. compactness C = 4*pi*A/P^2,
+# 4. length of kernel,
+# 5. width of kernel,
+# 6. asymmetry coefficient
+# 7. length of kernel groove.
+#tipos : Kama, Rosa and Canadian
+# All of these parameters were real-valued continuous.
+semillas<-read.delim(file = "datasets/seeds_dataset1.txt",header = FALSE)
+O<-cor(semillas)
+corrplot(O)
+plot(semillas)
+
+library(DMwR)
+
+## Split in train + test set
+idxs <- sample(1:nrow(semillas),as.integer(0.7*nrow(semillas)))
+trainSemillas <- semillas[idxs,]
+testSemillas <- semillas[-idxs,]
+
+## A 3-nearest neighbours model with no normalization
+nn3 <- kNN(V8 ~ .,trainSemillas,testSemillas,norm=FALSE,k=3)
+
+## The resulting confusion matrix
+table(testSemillas[,'V8'],nn3)
+
+## Now a 5-nearest neighbours model with normalization
+nn5 <- kNN(V8 ~ .,trainSemillas,testSemillas,,norm=TRUE,k=5)
+
+## The resulting confusion matrix
+table(testSemillas[,'V8'],nn5)
+
+
+
