@@ -9,7 +9,6 @@ datos_violencia<-limpieza_paises(datos_violencia)
 #ELIMINANDO LOS VALORES NA
 datos_violencia<-borrar_na(datos_violencia)
 datos_violencia<-limpiar_edades(datos_violencia)
-glimpse(datos_violencia)
 
 #1)Cantidad de casos registrados por año y que sean de modalidad violencia fisica#
 temporal<-datos_violencia
@@ -42,7 +41,7 @@ group_by_denuncias<-function(df)
   return(df%>%group_by(DPTO_CIA)%>%summarise(Total=n())%>%arrange(desc(Total)))
 }
 
-q3<-group_by_denuncias(temporal)
+q3<-group_by_denuncias(datos_violencia)
 
 
 #4)Cantidad de personas según la relación con la denuncia#
@@ -60,7 +59,7 @@ relacion_denuncia<-function(df,cant_top)
   }
 }
 
-q4<-relacion_denuncia(temporal,0)
+q4<-relacion_denuncia(datos_violencia,0)
 
 #5 Cantidad de casos segun paises
 
@@ -77,7 +76,7 @@ cant_paises<-function(df,cant_top)
   }
 }
 
-q5<-cant_paises(temporal,0)
+q5<-cant_paises(datos_violencia,0)
 
 
 #6 Cantidad de casos por edad
@@ -86,7 +85,7 @@ casos_Edad<-function(df)
   return(df%>%group_by(EDAD)%>%summarise(Total=n())%>%arrange(desc(Total)))
 }
 
-q6<-casos_Edad(temporal)
+q6<-casos_Edad(datos_violencia)
 
 #7 Cantidad de casos por sexo
 
@@ -94,7 +93,7 @@ casos_sexo<-function(df)
 {
   return(df%>%group_by(SEXO)%>%summarise(Total=n())%>%arrange(desc(Total)))
 }
-q7<-casos_sexo(temporal)
+q7<-casos_sexo(datos_violencia)
 
 
 #8 Cantidad de casos registrados por Distrito top
@@ -111,5 +110,22 @@ casos_distritos<-function(df,cant_top)
     
   }
 }
-q8<-casos_distritos(temporal,5)
 
+q8<-casos_distritos(datos_violencia,5)
+
+#9 Fiscalia Derivadas
+fiscalias<-function(df)
+{
+  return(df%>%group_by(DERIVADA_FISCALIA)%>%filter(DERIVADA_FISCALIA!="NULL")%>%summarise(Total=n())%>%arrange(desc(Total)))
+}
+q9<-fiscalias(datos_violencia)
+
+#10 cantidad de denunciantes y denuncoados separados por sexos
+
+situcion_persona_por_Sexo<-function(df)
+{
+  return(df%>%group_by(SIT_PERSONA,SEXO)%>%filter(SIT_PERSONA=="DENUNCIANTE" |SIT_PERSONA=="DENUNCIADO")%>%summarise(Total=n())%>%arrange(desc(Total)))
+}
+q10<-situcion_persona_por_Sexo(datos_violencia)
+
+#11

@@ -22,7 +22,7 @@ borrar_na<-function(df)
 }
 limpiar_edades<-function(df)
 {
-  temporal<-temporal%>%filter(EDAD>8 & EDAD<101 & PERSONA>9999 & ID_PERSONA>9999)  
+  temporal<-df%>%filter(EDAD>8 & EDAD<101 & PERSONA>9999 & ID_PERSONA>9999)  
   return(temporal)
 }
 

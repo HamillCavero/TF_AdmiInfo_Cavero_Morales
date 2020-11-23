@@ -1,6 +1,6 @@
 library(corrplot)
 library(ggplot2)
-
+source("Transformacion.R")
 #grafico del q2
 qplot(x=Modalidad,y=Cantidad_Casos,data = q2,geom = "col")+aes(fill= Modalidad)
 
