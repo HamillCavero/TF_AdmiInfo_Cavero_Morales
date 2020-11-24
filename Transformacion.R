@@ -1,5 +1,5 @@
-source("RecoleccionDatos.R")
-source("PreprocesamientoDatos.R")
+#source("RecoleccionDatos.R")
+#source("PreprocesamientoDatos.R")
 
 library(dplyr)
 
@@ -155,6 +155,29 @@ tipo_semilla<-function(df,area)
 }
 q13<-tipo_semilla(semillas,8)
 
+#14 Promedio de personas por edad que denuncia.
 
+promedio_Edad<-function(df)
+{
+  return(mean(df$EDAD))
+}
+q14<-promedio_Edad(datos_violencia)
 
+q14
 
+#15 Muestra de porcentaje de denuncias por edad y tipo de denuncia
+porcentaje_Edades<-function(df,edad,todos)
+{
+  q15<-df%>%group_by(Edad=df$EDAD)%>%summarise(total=n())%>%arrange(desc(total))
+  q15$Porcentaje=(q15$total/NROW(datos_violencia))*100
+  if(todos==FALSE)
+  {
+  return(q15<-q15%>%filter(Edad==edad))
+  }
+  else
+  {
+   return(q15) 
+  }
+}
+
+q15<-porcentaje_Edades(datos_violencia,18,TRUE)
