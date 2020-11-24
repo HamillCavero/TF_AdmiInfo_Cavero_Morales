@@ -8,5 +8,6 @@ Trabajo Final de Administración de la información de Cavero Hamill y Morales E
   * dataset adicional para lm y otras funciones.
   * reemplazo del dataset de vino por uno de semillas para usar el knn
   * implementación del knn
+  * implementación de kmeans
 This is a line from RStudio
 
