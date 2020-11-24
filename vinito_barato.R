@@ -71,12 +71,23 @@ aaaa
 
 semillas1 <- semillas1 %>% mutate(cluster = aaaa$cluster)
 semillas1 <- semillas1 %>% mutate(cluster = as.factor(cluster),
-                          grupo   = as.factor(grupo))
+                          #grupo   = as.factor(grupo))
+                          grupo   = 3)
 
-ggplot(data = semillas1, aes(x = semillas1$Perimetro, y = semillas1$Coeficiente_de_Asimetria, color = 3)) +
+ggplot(data = semillas1, aes(x = semillas1$Perimetro, y = semillas1$Coeficiente_de_Asimetria, color = semillas1$Tipo)) +
   geom_text(aes(label = cluster), size = 5) +
   theme_bw() +
   theme(legend.position = "none")
 
 colnames(datos_violencia)
 
+
+plot(semillas1$largo,semillas1$ancho)
+reg_semillas1<-abline(lm(semillas1$ancho~semillas1$largo),col="red")
+
+plot(semillas1$Perimetro,semillas1$ancho)
+reg_semillas1<-abline(lm(semillas1$ancho~semillas1$Perimetro),col="red")
+
+plot(semillas1$Perimetro,semillas1$Area)
+reg_smlls1<-lm(semillas1$Area~semillas1$Perimetro)
+reg_semillas1<-abline(lm(semillas1$Area~semillas1$Perimetro),col="red")
