@@ -163,11 +163,11 @@ promedio_Edad<-function(df)
 }
 q14<-promedio_Edad(datos_violencia)
 
-#15 Muestra de porcentaje de denuncias por edad y tipo de denuncia
-porcentaje_Edades<-function(df,edad,todos)
+#15) Muestra de porcentaje de denuncias por edad y tipo de denuncia
+porcentaje_Edades<-function(df,edad,todos) # PORCENTAJE EN GENERAL CON TODO EL DATASET
 {
   q15<-df%>%group_by(Edad=df$EDAD)%>%summarise(total=n())%>%arrange(desc(total))
-  q15$Porcentaje=(q15$total/NROW(datos_violencia))*100
+  q15$Porcentaje=(q15$total/NROW(df))*100
   if(todos==FALSE)
   {
   return(q15<-q15%>%filter(Edad==edad))
@@ -179,3 +179,33 @@ porcentaje_Edades<-function(df,edad,todos)
 }
 
 q15<-porcentaje_Edades(datos_violencia,18,TRUE)
+
+#16)cantidad de casos de 18 años y CON FILTRO SEGÚN TIPO DE DENUNCIA TOTAL
+
+porc_tip_denuncia<-function(df,edad,denuncia_tipo)
+{
+  q<-df%>%group_by(EDAD,TIPO_DENUNCIA)%>%filter(EDAD==edad & TIPO_DENUNCIA==denuncia_tipo)%>%summarise(total=n())%>%arrange(desc(total))
+  da<-df%>%group_by(TIPO_DENUNCIA)%>%filter(TIPO_DENUNCIA==denuncia_tipo)%>%summarise(tot=n())
+  q$Porcentaje=(q$total/da$tot)*100  
+  return (q)
+}
+q16<-porc_tip_denuncia(datos_violencia,18,'DENUNCIA')
+
+#17)cantidad de casos de 18 años y CON FILTRO SEGÚN TIPO DE DENUNCIA TOTAL, PERO QUE EL DETERMINANTE DEL PORCENTAJE SERA LA EDAD
+
+porc_tip_edad<-function(df,edad)
+{
+  da<-df%>%group_by(EDAD,TIPO_DENUNCIA)%>%filter(EDAD==edad)%>%summarise(tot=n())
+  dto<-df%>%group_by(EDAD)%>%filter(EDAD==edad)%>%summarise(tot=n())
+  da$tot=(da$tot/dto$tot)*100
+  return (da)
+}
+q17<-porc_tip_edad(datos_violencia,18)
+
+# 18) Obtención de datos  de denuncia por año especifico
+
+datosobtenidos_porfecha<-function(df,fecha)
+{
+  return(df%>%filter(FECHA_HORA_HECHO==fecha))
+}
+q18<-datosobtenidos_porfecha(datos_violencia,'2016-12-31')
