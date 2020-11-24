@@ -153,7 +153,6 @@ tipo_semilla<-function(df,area)
   dv<-df%>%group_by(Tipo,Area)%>%filter(Area>area)%>%select(c(1,8))
   return(dv)
 }
-
 q13<-tipo_semilla(semillas,8)
 
 
