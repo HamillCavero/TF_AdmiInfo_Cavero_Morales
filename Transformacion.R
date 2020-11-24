@@ -163,8 +163,6 @@ promedio_Edad<-function(df)
 }
 q14<-promedio_Edad(datos_violencia)
 
-q14
-
 #15 Muestra de porcentaje de denuncias por edad y tipo de denuncia
 porcentaje_Edades<-function(df,edad,todos)
 {
