@@ -38,6 +38,7 @@ names(semillas)[7]<-"Longitud_semilla"
 names(semillas)[8]<-"Tipo"
 
 
+
 colnames(semillas)
 
 library(DMwR)
@@ -49,6 +50,7 @@ testSemillas <- semillas[-idxs,]
 
 ## A 3-nearest neighbours model with no normalization
 nn3 <- kNN(Tipo ~ .,trainSemillas,testSemillas,norm=FALSE,k=3)
+?kNN
 
 ## The resulting confusion matrix
 table(testSemillas[,'Tipo'],nn3)
@@ -59,5 +61,22 @@ nn5 <- kNN(Tipo ~ .,trainSemillas,testSemillas,,norm=TRUE,k=5)
 ## The resulting confusion matrix
 table(testSemillas[,'Tipo'],nn5)
 
+library(stats)
 
+plot(semillas$Perimetro,semillas$Coeficiente_de_Asimetria)
+semillas1<-semillas
+
+aaaa<-kmeans(x = semillas1,centers = 3,iter.max = 10,nstart = 30)
+aaaa
+
+semillas1 <- semillas1 %>% mutate(cluster = aaaa$cluster)
+semillas1 <- semillas1 %>% mutate(cluster = as.factor(cluster),
+                          grupo   = as.factor(grupo))
+
+ggplot(data = semillas1, aes(x = semillas1$Perimetro, y = semillas1$Coeficiente_de_Asimetria, color = 3)) +
+  geom_text(aes(label = cluster), size = 5) +
+  theme_bw() +
+  theme(legend.position = "none")
+
+colnames(datos_violencia)
 
