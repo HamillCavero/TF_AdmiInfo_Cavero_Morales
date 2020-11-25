@@ -586,7 +586,7 @@ datosobtenidos_porfecha<-function(df,fecha)
           gm4<-ggplot(data=regre_multi_semillas,aes(x = regre_multi_semillas$fitted.values,y = regre_multi_semillas$residuals))+
             geom_point() + geom_smooth()"
               return (gm4)
-            }
+            } 
       
     })
   
@@ -609,6 +609,7 @@ datosobtenidos_porfecha<-function(df,fecha)
                                           grupo   = 3)
         gm1<-ggplot(data = semillas1, aes(x = semillas1$Perimetro, y = semillas1$Coeficiente_de_Asimetria, color = semillas1$cluster)) +
           geom_text(aes(label = cluster), size = 5) +
+          #geom_point(aes(x = aaaa$centers[, 1], y = aaaa$centers[, 2]), color = 'black', size = 3)+
           theme_bw() +
           theme(legend.position = "none")
         
@@ -633,20 +634,20 @@ datosobtenidos_porfecha<-function(df,fecha)
         return (gm4)
         }
       if(box == "5")  {
-        regre_multi_semillas<-lm(data = semillas,semillas$Area~semillas$Perimetro+semillas$largo+semillas$ancho)
-        gm5<-ggplot(data=regre_multi_semillas,aes(x = regre_multi_semillas$fitted.values,y = regre_multi_semillas$residuals))+
-          geom_point() + geom_smooth()
+        ## Split in train + test set
+        idxs <- sample(1:nrow(semillas),as.integer(0.7*nrow(semillas)))
+        trainSemillas <- semillas[idxs,]
+        testSemillas <- semillas[-idxs,]
+        
+        ## A 3-nearest neighbours model with no normalization
+        nn3 <- kNN(Tipo ~ .,trainSemillas,testSemillas,norm=FALSE,k=3)
+        nn31 <- as.numeric(levels(nn3))[nn3]
+        gm5<- qplot(nn31)
         
         return (gm5)
       }
-        # dtModeloR2<-data.frame(dtFinal%>%group_by(DesDpto)%>%summarise(AHumanitarFam=sum(AHumanitarFam),EDanosVivienda=sum(EDanosVivienda)))
-        # 
-        # return( 
-        #     
-        #     ggplot(dtModeloR2, aes(x=AHumanitarFam, y=EDanosVivienda)) +
-        #       geom_point() + ggtitle("Gráfica de Regresion") + 
-        #       xlab("Ayuda Humanitaria") + ylab("Estimacion de Daños por Vivienda") + geom_smooth(method=lm)
-        # )
+      
+      
         
     })
     

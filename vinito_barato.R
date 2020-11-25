@@ -49,8 +49,10 @@ sum(as.integer(testSemillas==2))
 sum(as.integer(testSemillas==3))
 
 qplot(nn3)
-plot(semillas$Tipo)
-qplot(semillas$Tipo)
+qplot(nn31)
+qplot(testSemillas$Tipo)
+
+plot(testSemillas$Tipo)
 ggplot(data = semillas,aes(x = semillas$Tipo, y = semillas$Area))+geom_col(stat="identity", width=1,color="white")
 plot(nn31)
 class(nn31[])
@@ -74,7 +76,7 @@ aaaa<-kmeans(x = semillas1,centers = 3,iter.max = 10,nstart = 30)
 aaaa
 
 ####
-  bbbb <- kmeans(semillas[,c(1,6)], 3, iter.max = 1000, nstart = 10)
+bbbb <- kmeans(semillas[,c(1,6)], 3, iter.max = 1000, nstart = 10)
 dataset$cluster <- kmeans$cluster
 semillas2<-semillas
 semillas2$cluster<-bbbb$cluster
