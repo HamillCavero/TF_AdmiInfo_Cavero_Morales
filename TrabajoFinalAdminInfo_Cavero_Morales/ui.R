@@ -17,7 +17,7 @@ shinyUI<-fluidPage(
     navbarPage( "Proyecto sobre Violencia Familiar-Obtenido de Datos abiertos",
                 tabPanel("Presentacion",fluidRow(
                     column(12,align="center",h3("Universidad Peruana de Ciencias Aplicadas"),
-                           tags$b(h4("proyecto demostracion"))),p("Revisa nuesto",a("informe",href="https://github.com/HamillCavero/TF_AdmiInfo_Cavero_Morales/blob/main/InformeTrabajoFinalAdministracion.md"),hr())
+                           tags$b(h4("proyecto demostracion"))),p("Revisa nuesto",a("informe",href="https://github.com/HamillCavero/TF_AdmiInfo_Cavero_Morales/blob/main/Documentaci%C3%B3n/InformeTrabajoFinalAdministracion.md"),hr())
                 )),
                 tabPanel("Recoleccion",
                 sidebarLayout (
