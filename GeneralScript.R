@@ -1,7 +1,7 @@
-source("vinito_barato.R")
-source("RecoleccionDatos.R")
-source("PreprocesamientoDatos.R")
-source("Transformacion.R")
+source("Codigo/vinito_barato.R")
+source("Codigo/RecoleccionDatos.R")
+source("Codigo/PreprocesamientoDatos.R")
+source("Codigo/Exploracion/transformacion.R")
 
 #Guardando Datos Backup#
 save.image("datasets/BackupDatosViolencia.Rda")
