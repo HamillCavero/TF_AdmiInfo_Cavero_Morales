@@ -1,22 +1,13 @@
-#
-# This is the server logic of a Shiny web application. You can run the
-# application by clicking 'Run App' above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
 
 library(shiny)
 library(corrplot)
 library(ggplot2)
 library(factoextra)
 
-# Define server logic required to draw a histogram
 options(shiny.maxRequestSize=103*1024^2)
 shinyServer(function(input, output) {
     getwd()
-    #datos_violencia
+    
     output$tablaS2 <- renderTable({
         tablaS1 <- input$file1
         if (is.null(tablaS1))
@@ -31,6 +22,7 @@ shinyServer(function(input, output) {
         } 
         } }
     })
+   
     output$consulta1 <- renderText({ '
     #LECTURA DE DATOS
 
