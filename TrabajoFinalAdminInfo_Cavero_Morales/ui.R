@@ -96,16 +96,16 @@ shinyUI<-fluidPage(
                               ))
                           ,tabPanel('Modelo',
                           navlistPanel(  
-                              tabPanel("Ayuda vs Estimacion de Daño",
+                              tabPanel("Muesta de Modelos",
                                        hr(),
                                        selectInput("selectmod",
                                                    label=NULL,
-                                                   choices = c('modelo 1'='1',
-                                                               'modelo 2'='2',
-                                                               'modelo 3'='3',
-                                                               'modelo 4'='4',
-                                                               'modelo 5'='5',
-                                                               'modelo 6'='6')),
+                                                   choices = c('Modelo K MEANS'='1',
+                                                               'Modelo Regresion Lineal'='2',
+                                                               'Muestra Regresion Lineal'='3',
+                                                               'Modelo Regresion NO Lineal'='4',
+                                                               'Modelo KNN'='5',
+                                                               'Comprobacion con Semilla'='6')),
                                        checkboxInput("control6", "Mostrar Codigo", FALSE),
                                        verbatimTextOutput("consulta6"),hr(), plotOutput("plot8"))  ) )
     
