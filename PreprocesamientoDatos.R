@@ -116,5 +116,3 @@ limpieza_paises<-function(df){
   
   return(PAISES)
 }
-#BORRAR ID NIVEL EDUCATIVO,nivel educativo,ocupación,CUADRA
-#ID MATERIA Y MATERIA ID TIPO, TIPO,VIA,

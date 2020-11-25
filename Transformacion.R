@@ -22,7 +22,6 @@ casos_anhos_modalidad<-function(df,anho,modalidad,totdatos)
   else
   {
   return(q1<-df%>%filter(year(df$fec_registro)==anho & df$MODALIDAD ==modalidad)%>%group_by(MODALIDAD,fec_registro)%>%summarise(Total=n()))
-    #%>%select(c(3,20,22,28,14,19))
   }
 }  
 q1<-casos_anhos_modalidad(datos_violencia,2017,"VIOLENCIA FISICA",FALSE)
@@ -77,7 +76,6 @@ cant_paises<-function(df,cant_top)
 
 q5<-cant_paises(datos_violencia,0)
 
-
 #6 Cantidad de casos por edad
 casos_Edad<-function(df)
 {
@@ -93,7 +91,6 @@ casos_sexo<-function(df)
   return(df%>%group_by(SEXO)%>%summarise(Total=n())%>%arrange(desc(Total)))
 }
 q7<-casos_sexo(datos_violencia)
-
 
 #8 Cantidad de casos registrados por Distrito top
 casos_distritos<-function(df,cant_top)

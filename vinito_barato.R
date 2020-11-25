@@ -1,13 +1,3 @@
-datos_vinos<-read.csv(file = "datasets/winequality-white.csv",sep = ";")
-?read.csv
-
-?corrplot
-
-M<-cor(datos_vinos)
-corrplot(M)
-
-N<-cor(mtcars)
-corrplot(N)
 
 #extraído de
 #http://archive.ics.uci.edu/ml/datasets/seeds
@@ -37,9 +27,6 @@ names(semillas)[6]<-"Coeficiente_de_Asimetria"
 names(semillas)[7]<-"Longitud_semilla"
 names(semillas)[8]<-"Tipo"
 
-
-
-colnames(semillas)
 
 library(DMwR)
 
