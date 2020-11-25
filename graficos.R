@@ -14,10 +14,9 @@ qplot(x=SIT_PERSONA,y=Total,data = q4%>%slice(1:5),geom = "col")+aes(fill= SIT_P
 qplot(x=pais_natal  ,y=Total,data = q5%>%slice(1:5),geom = "col")+aes(fill= pais_natal)
 
 #grafico del q6
-qplot(x=EDAD   ,y=Total,data = q6,geom = "col")+aes(fill= EDAD )
+qplot(x=EDAD   ,y=Total,data = q6,geom = "line")+aes(fill= EDAD )
 
 #grafico del q7
-qplot(x=EDAD   ,y=Total,data = q7,geom = "col")+aes(fill= EDAD )
 ggplot(data = q7, aes(x="", y=q7$Total, fill=q7$SEXO)) +
   geom_bar(stat="identity", width=1) +
   coord_polar("y", start=0)

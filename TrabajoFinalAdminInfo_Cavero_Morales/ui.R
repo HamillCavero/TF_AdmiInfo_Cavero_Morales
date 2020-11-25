@@ -36,7 +36,7 @@ shinyUI<-fluidPage(
                 ,tabPanel("Preprocesamiento",
                           navlistPanel(
                               tabPanel("Limpieza e Imputacion",
-                                       h4("Unir Dataset's Separados"),hr(),checkboxInput("control1", "Mostrar Codigo", FALSE),hr(),
+                                       h4("Unir Dataset's Separados"),hr(),checkboxInput("control1", "Mostrar Codigo", FALSE),hr(),actionButton("download",'Descargar datos Procesados'),
                                        verbatimTextOutput("consulta1"),tableOutput("tablaS5"))))
                 ,tabPanel('Consultas Exploracion',
                           navlistPanel(
@@ -49,7 +49,7 @@ shinyUI<-fluidPage(
                 
                 ,tabPanel('Graficos',
                           navlistPanel( 
-                              tabPanel("Graficos GGPLOT2",h4("GGPLOT2"),hr(),selectInput("selectgg", label = NULL, choices = c('consulta 1'='1','consulta 2'='2','consulta 3'='3','consulta 4'='4','consulta 5'='5')),checkboxInput("control4", "Mostrar Codigo", FALSE),hr(),verbatimTextOutput("consulta4"),plotOutput('plot1'))
+                              tabPanel("Graficos GGPLOT2",h4("GGPLOT2"),hr(),selectInput("selectgg", label = NULL, choices = c('consulta 1'='1','consulta 2'='2','consulta 3'='3','consulta 4'='4','consulta 5'='5','consulta 6'='6','consulta 7'='7')),checkboxInput("control4", "Mostrar Codigo", FALSE),hr(),verbatimTextOutput("consulta4"),plotOutput('plot1'))
                               ))
                           ,tabPanel('Modelo',
                           navlistPanel(  
