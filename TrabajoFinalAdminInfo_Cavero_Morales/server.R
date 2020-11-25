@@ -578,7 +578,22 @@ datosobtenidos_porfecha<-function(df,fecha)
           gm4<-ggplot(data=regre_multi_semillas,aes(x = regre_multi_semillas$fitted.values,y = regre_multi_semillas$residuals))+
             geom_point() + geom_smooth()"
               return (gm4)
-            } 
+            } else
+              if(box == "5")    {
+                gm5<-"idxs <- sample(1:nrow(semillas),as.integer(0.7*nrow(semillas)))
+        trainSemillas <- semillas[idxs,]
+        testSemillas <- semillas[-idxs,]
+        
+        nn3 <- kNN(Tipo ~ .,trainSemillas,testSemillas,norm=FALSE,k=3)
+        nn31 <- as.numeric(levels(nn3))[nn3]
+        gm5<- qplot(nn31)"
+                return (gm5)
+              } else
+                if(box == "6")    {
+                  gm6<-"qplot(testSemillas$Tipo)"
+                  return (gm6)
+                } 
+      
       
     })
   
@@ -624,21 +639,25 @@ datosobtenidos_porfecha<-function(df,fecha)
             geom_point() + geom_smooth()
 
         return (gm4)
-        }
+        } else
       if(box == "5")  {
-        ## Split in train + test set
         idxs <- sample(1:nrow(semillas),as.integer(0.7*nrow(semillas)))
         trainSemillas <- semillas[idxs,]
         testSemillas <- semillas[-idxs,]
         
-        ## A 3-nearest neighbours model with no normalization
         nn3 <- kNN(Tipo ~ .,trainSemillas,testSemillas,norm=FALSE,k=3)
         nn31 <- as.numeric(levels(nn3))[nn3]
         gm5<- qplot(nn31)
         
         return (gm5)
       }
-      
+      else
+        if(box == "6")  {
+          gm6<- qplot(testSemillas$Tipo)
+
+          
+          return (gm6)
+        }
       
         
     })

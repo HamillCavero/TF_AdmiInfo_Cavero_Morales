@@ -104,7 +104,8 @@ shinyUI<-fluidPage(
                                                                'modelo 2'='2',
                                                                'modelo 3'='3',
                                                                'modelo 4'='4',
-                                                               'modelo 5'='5')),
+                                                               'modelo 5'='5',
+                                                               'modelo 6'='6')),
                                        checkboxInput("control6", "Mostrar Codigo", FALSE),
                                        verbatimTextOutput("consulta6"),hr(), plotOutput("plot8"))  ) )
     
