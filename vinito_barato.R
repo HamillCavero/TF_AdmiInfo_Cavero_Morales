@@ -14,9 +14,6 @@
 #tipos : Kama, Rosa and Canadian
 # All of these parameters were real-valued continuous.
 semillas<-read.delim(file = "datasets/seeds_dataset1.txt",header = FALSE)
-O<-cor(semillas)
-corrplot(O)
-plot(semillas)
 
 names(semillas)[1]<-"Area"
 names(semillas)[2]<-"Perimetro"

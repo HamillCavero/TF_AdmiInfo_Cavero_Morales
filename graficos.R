@@ -17,7 +17,11 @@ qplot(x=pais_natal  ,y=Total,data = q5%>%slice(1:5),geom = "col")+aes(fill= pais
 qplot(x=EDAD   ,y=Total,data = q6,geom = "line")+aes(fill= EDAD )
 
 #grafico del q7
+<<<<<<< HEAD
 ggplot(data = q7, aes(x="", y=q7$Total, fill=SEXO)) +
+=======
+ggplot(data = q7, aes(x="", y=q7$Total, fill=q7$SEXO)) +
+>>>>>>> bfb9cd137eb647b7cc436bdca8fd9537a80d0988
   geom_bar(stat="identity", width=1) +
   coord_polar("y", start=0)+theme_void()
 

@@ -402,6 +402,19 @@ datosobtenidos_porfecha<-function(df,fecha)
       } else { if(box=="5")
       { gp5<-"qplot(x=EDAD   ,y=Total,data = q6,geom = 'col')+aes(fill= EDAD )"
       return (gp5)
+      }else{
+        if(box=="6")
+        {
+          gp6<-"qplot(x=EDAD   ,y=Total,data = q7,geom = 'col')+aes(fill= EDAD )
+ggplot(data = q7, aes(x='', y=q7$Total, fill=q7$SEXO)) + geom_bar(stat='identity', width=1) + coord_polar('y', start=0)"
+        return(gp6)
+        }else{
+          if(box=="7")
+            {
+           gp7<-"qplot(x=q8$DIST_CIA   ,y=Total,data = q8,geom = 'col')+aes(fill= q8$DIST_CIA )" 
+           return(gp7)
+           }
+        }
       } 
       } }
       } }
@@ -425,12 +438,23 @@ datosobtenidos_porfecha<-function(df,fecha)
         { gp4<-qplot(x=pais_natal  ,y=Total,data = q5%>%slice(1:5),geom = "col")+aes(fill= pais_natal)
         return (gp4)
         } else { if(box=="5")
-        { gp5<-qplot(x=EDAD   ,y=Total,data = q6,geom = "col")+aes(fill= EDAD )
+        { gp5<-qplot(x=EDAD   ,y=Total,data = q6,geom = "line")+aes(fill= EDAD )
         return (gp5)
-        } 
+        }else{
+          if(box=="6")
+          {
+gp6<-ggplot(data = q7, aes(x="", y=q7$Total, fill=q7$SEXO)) +
+  geom_bar(stat='identity', width=1) +
+  coord_polar('y', start=0)
+            return(gp6)
+          }else{
+            if(box=="7")
+            {
+              gp7<-qplot(x=q8$DIST_CIA   ,y=Total,data = q8,geom = 'col')+aes(fill= q8$DIST_CIA )
+              return(gp7)
+              } 
         } }
-        } } }
-    )
+        } } }}})
     
     
     output$consulta6 <- renderText({
@@ -462,11 +486,17 @@ ggplot(dtModeloR2, aes(x=AHumanitarFam, y=EDanosVivienda)) + geom_point() + ggti
     })
     
     observeEvent(input$control1, {
+        
         if(input$control1==TRUE)
-        {toggle("consulta1")} else {toggle("consulta1")}
+        {toggle("consulta1") } else {toggle("consulta1")}
         
     })
     
+    observeEvent(input$download,
+    {
+      write.csv(datos_violencia,"datosprocesados.csv")
+        
+    })
     observeEvent(input$control2, {
         
         if(input$control2==TRUE)
