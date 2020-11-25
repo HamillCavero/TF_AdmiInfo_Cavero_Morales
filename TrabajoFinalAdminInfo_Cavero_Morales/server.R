@@ -10,6 +10,7 @@
 library(shiny)
 library(corrplot)
 library(ggplot2)
+library(factoextra)
 
 # Define server logic required to draw a histogram
 options(shiny.maxRequestSize=103*1024^2)
@@ -175,7 +176,9 @@ casos_distritos<-function(df,cant_top)
           txt9<-"#9 Fiscalia Derivadas
 fiscalias<-function(df)
 {
-  return(df%>%group_by(DERIVADA_FISCALIA)%>%filter(DERIVADA_FISCALIA!='NULL')%>%summarise(Total=n())%>%arrange(desc(Total)))
+  return(df%>%group_by(DERIVADA_FISCALIA)%>%
+  filter(DERIVADA_FISCALIA!='NULL')%>%
+  summarise(Total=n())%>%arrange(desc(Total)))
 }"
           return (txt9)
         } 
@@ -185,7 +188,9 @@ fiscalias<-function(df)
 
 situcion_persona_por_Sexo<-function(df)
 {
-  return(df%>%group_by(SIT_PERSONA,SEXO)%>%filter(SIT_PERSONA=='DENUNCIANTE' |SIT_PERSONA=='DENUNCIADO')%>%summarise(Total=n())%>%arrange(desc(Total)))
+  return(df%>%group_by(SIT_PERSONA,SEXO)%>%
+  filter(SIT_PERSONA=='DENUNCIANTE' |SIT_PERSONA=='DENUNCIADO')%>%
+  summarise(Total=n())%>%arrange(desc(Total)))
 }"
           return (txt10)
         }
@@ -270,7 +275,8 @@ porc_tip_denuncia<-function(df,edad,denuncia_tipo)
         
         else { if(opc=="17")
         {
-          txt17<-"#17)cantidad de casos de 18 años y CON FILTRO SEGÚN TIPO DE DENUNCIA TOTAL, PERO QUE EL DETERMINANTE DEL PORCENTAJE SERA LA EDAD
+          txt17<-"#17)cantidad de casos de 18 años y CON FILTRO SEGÚN TIPO DE DENUNCIA TOTAL, 
+          PERO QUE EL DETERMINANTE DEL PORCENTAJE SERA LA EDAD
 
 porc_tip_edad<-function(df,edad)
 {
@@ -387,38 +393,74 @@ datosobtenidos_porfecha<-function(df,fecha)
       if (is.null(box))
       {return(NULL)}
       
-      if(box == "1")    {
+      if(box == "1")  {
         gp1<-"qplot(x=Modalidad,y=Cantidad_Casos,data = q2,geom = 'col)+aes(fill= Modalidad)"  
         return (gp1)
-      } else{  if(box == "2") {
+        } else  
+          if(box == "2")  {
         gp2<-"qplot(x=Total,y=DPTO_CIA,data = q3,geom = 'col')+aes(fill= DPTO_CIA)"
         return (gp2)
-      } else { if(box == "3") {
+        } else  
+          if(box == "3")  {
         gp3<-"qplot(x=SIT_PERSONA,y=Total,data = q4%>%slice(1:5),geom = 'col')+aes(fill= SIT_PERSONA)"
         return (gp3)
-      } else { if(box == "4")
-      { gp4<-"qplot(x=pais_natal  ,y=Total,data = q5%>%slice(1:5),geom = 'col')+aes(fill= pais_natal)"
-      return (gp4)
-      } else { if(box=="5")
-      { gp5<-"qplot(x=EDAD   ,y=Total,data = q6,geom = 'col')+aes(fill= EDAD )"
-      return (gp5)
-      }else{
-        if(box=="6")
-        {
-          gp6<-"qplot(x=EDAD   ,y=Total,data = q7,geom = 'col')+aes(fill= EDAD )
-ggplot(data = q7, aes(x='', y=q7$Total, fill=q7$SEXO)) + geom_bar(stat='identity', width=1) + coord_polar('y', start=0)"
+        } else 
+          if(box == "4")  { 
+        gp4<-"qplot(x=pais_natal  ,y=Total,data = q5%>%slice(1:5),geom = 'col')+aes(fill= pais_natal)"
+        return (gp4)
+        } else   
+          if(box=="5")  { 
+        gp5<-"qplot(x=EDAD   ,y=Total,data = q6,geom = 'col')+aes(fill= EDAD )"
+        return (gp5)
+        } else  
+          if(box=="6")  {
+        gp6<-"ggplot(data = q7, aes(x='', y=q7$Total, fill=q7$SEXO)) + geom_bar(stat='identity', width=1) + coord_polar('y', start=0)"
         return(gp6)
-        }else{
-          if(box=="7")
-            {
-           gp7<-"qplot(x=q8$DIST_CIA   ,y=Total,data = q8,geom = 'col')+aes(fill= q8$DIST_CIA )" 
-           return(gp7)
-           }
-        }
-      } 
-      } }
-      } }
-    })
+        } else  
+          if(box=="7")  {
+        gp7<-"qplot(x=q8$DIST_CIA   ,y=Total,data = q8,geom = 'col')+aes(fill= q8$DIST_CIA )" 
+        return(gp7)
+        } else  
+          if(box=="8")  {
+        gp8<-"ggplot(data = q9, aes(x='',y= Total, fill= DERIVADA_FISCALIA)) +
+        geom_bar(stat='identity',width=1,color='white') +  coord_polar('y', start=0)+theme_void()"
+        return(gp8)
+        } else  
+          if(box=="9")  {
+          gp9<-"qplot(x=SIT_PERSONA  ,y=Total,data = q10,geom = 'col')+aes(fill= SEXO)"
+          return(gp9)
+        } else  
+          if(box=="10")  {
+          gp10<-"qplot(x= MES  ,y=Total,data = q11,geom = 'col')+aes(fill= MES)+theme_minimal()"
+          return(gp10)
+        } else
+          if(box=="11")  {
+          gp11<-"qplot(x=EST_CIVIL,y=Total,data = q12)+aes(fill= EST_CIVIL ) +
+                    geom_point(size=4, color='#aaaaaa') +
+          theme_minimal()+
+            theme(legend.position = 'none'') +
+            geom_text(aes(label=q12$Total),hjust=0, vjust=0)"
+          return(gp11)
+          } else 
+            if(box=="12")  {
+              gp12<-"qplot(x=Tipo   ,y=Area,data = q13,geom = 'boxplot')+theme_classic()+xlab(label = '')"
+              return(gp12)
+            }else 
+              if(box=="13")  {
+                gp13<-"qplot(x= Edad  ,y= total,data = q15,geom = 'line')+aes(fill= total)"
+                return(gp13)
+              }else 
+                if(box=="14")  {
+                  gp14<-"ggplot(data = q17, aes(x='', y= tot, fill= TIPO_DENUNCIA)) +
+                          geom_bar(stat='identity', width=1,color='white') +
+                          coord_polar('y', start=0)+theme_void()+
+                          geom_text(aes(label = paste(round(tot, digits = 2)
+                                                      , '%'), x = 1.3),
+                                    position = position_stack(vjust = 0.5))"
+                  return(gp14)
+                }
+      
+      })
     
     output$plot1 <- renderPlot({
         box<- input$selectgg
@@ -428,44 +470,124 @@ ggplot(data = q7, aes(x='', y=q7$Total, fill=q7$SEXO)) + geom_bar(stat='identity
         if(box == "1")    {
           gp1<-qplot(x=Modalidad,y=Cantidad_Casos,data = q2,geom = "col")+aes(fill= Modalidad)  
           return (gp1)
-        } else{  if(box == "2") {
+        } else  { if(box == "2") {
           gp2<-qplot(x=Total,y=DPTO_CIA,data = q3,geom = "col")+aes(fill= DPTO_CIA)
             return (gp2)
-        } else { if(box == "3") {
-           gp3<-qplot(x=SIT_PERSONA,y=Total,data = q4%>%slice(1:5),geom = "col")+aes(fill= SIT_PERSONA)
+        } else  { if(box == "3") {
+          gp3<-qplot(x=SIT_PERSONA,y=Total,data = q4%>%slice(1:5),geom = "col")+aes(fill= SIT_PERSONA)
             return (gp3)
-        } else { if(box == "4")
-        { gp4<-qplot(x=pais_natal  ,y=Total,data = q5%>%slice(1:5),geom = "col")+aes(fill= pais_natal)
-        return (gp4)
-        } else { if(box=="5")
-        { gp5<-qplot(x=EDAD   ,y=Total,data = q6,geom = "line")+aes(fill= EDAD )
-        return (gp5)
-        }else{
-          if(box=="6")
-          {
-gp6<-ggplot(data = q7, aes(x="", y=q7$Total, fill=q7$SEXO)) +
-  geom_bar(stat='identity', width=1) +
-  coord_polar('y', start=0)
-            return(gp6)
-          }else{
-            if(box=="7")
-            {
-              gp7<-qplot(x=q8$DIST_CIA   ,y=Total,data = q8,geom = 'col')+aes(fill= q8$DIST_CIA )
-              return(gp7)
-              } 
-        } }
-        } } }}})
+        } else  { if(box == "4")  {
+          gp4<-qplot(x=pais_natal  ,y=Total,data = q5%>%slice(1:5),geom = "col")+aes(fill= pais_natal)
+            return (gp4)
+        } else  { 
+          if(box=="5")  {
+          gp5<-qplot(x=EDAD   ,y=Total,data = q6,geom = "line")+aes(fill= EDAD )
+            return (gp5)
+        } else  { 
+            if(box=="6")  {
+          gp6<-ggplot(data = q7, aes(x="", y=q7$Total, fill=SEXO)) +
+          geom_bar(stat='identity', width=1) +
+          coord_polar('y', start=0)+theme_void()
+          return(gp6)
+          
+          } else  { 
+              if(box=="7")  {
+          gp7<-qplot(x=q8$DIST_CIA   ,y=Total,data = q8,geom = 'col')+aes(fill= q8$DIST_CIA )
+          return(gp7)
+        
+          } else  { 
+                if(box=="8")  {
+          gp8<-ggplot(data = q9, aes(x="", y= Total, fill= DERIVADA_FISCALIA)) +
+            geom_bar(stat="identity", width=1,color="white") +
+            coord_polar("y", start=0)+theme_void()
+          return(gp8)
+        
+          } else  { 
+                  if(box=="9")  {
+              gp9<-qplot(x=SIT_PERSONA  ,y=Total,data = q10,geom = "col")+aes(fill= SEXO)
+              return(gp9)
+              
+            }  else  { 
+                    if(box=="10")  {
+                gp10<-qplot(x= MES  ,y=Total,data = q11,geom = "col")+aes(fill= MES)+theme_minimal()
+                return(gp10)
+                
+              } else  { 
+                      if(box=="11")  {
+                  gp11<-qplot(x=EST_CIVIL,y=Total,data = q12)+aes(fill= EST_CIVIL ) +
+                    geom_point(size=4, color="#aaaaaa") +
+                    theme_minimal()+
+                    theme(legend.position = "none") +
+                    geom_text(aes(label=q12$Total),hjust=0, vjust=0)
+                  return(gp11)
+                  
+                } else  { 
+                        if(box=="12")  {
+                    gp12<-qplot(x=Tipo   ,y=Area,data = q13,geom = "boxplot")+theme_classic()+xlab(label = "")
+                    return(gp12)
+                  } else  { 
+                          if(box=="13")  {
+                      gp13<-qplot(x= Edad  ,y= total,data = q15,geom = "line")+aes(fill= total)
+                      return(gp13)
+                    } else  { 
+                            if(box=="14")  {
+                        gp14<-ggplot(data = q17, aes(x="", y= tot, fill= TIPO_DENUNCIA)) +
+                          geom_bar(stat="identity", width=1,color="white") +
+                          coord_polar("y", start=0)+theme_void()+
+                          geom_text(aes(label = paste(round(tot, digits = 2)
+                                                      , "%"), x = 1.3),
+                                    position = position_stack(vjust = 0.5))
+                        return(gp14)
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+          }
+          }
+          }
+          }
+          }
+          }
+        })
     
     
     output$consulta6 <- renderText({
-        "dtModeloR2<-data.frame(dtFinal%>%group_by(DesDpto)%>%summarise(AHumanitarFam=sum(AHumanitarFam),EDanosVivienda=sum(EDanosVivienda)))
-dtModeloR2.1<-dtModeloR2%>%select(AHumanitarFam,EDanosVivienda)
-
-regresion2 <- lm(AHumanitarFam  ~  EDanosVivienda, data = dtModeloR2)
-summary(regresion2)
-    
-ggplot(dtModeloR2, aes(x=AHumanitarFam, y=EDanosVivienda)) + geom_point() + ggtitle('Gráfica de Regresion') + xlab('Ayuda Humanitaria por Familia') + ylab('Estimacion de Daños por Vivienda') + geom_smooth(method=lm)
-    "
+      box<- input$selectmod
+      if (is.null(box))    {return(NULL)}
+      if(box == "1")    {
+        gm1<-"semillas1<-semillas
+        aaaa<-kmeans(x = semillas1,centers = 3,iter.max = 10,nstart = 30)
+        aaaa
+        semillas1 <- semillas1 %>% mutate(cluster = aaaa$cluster)
+        semillas1 <- semillas1 %>% mutate(cluster = as.factor(cluster),
+                                          #grupo   = as.factor(grupo))
+                                          grupo   = 3)
+        ggplot(data = semillas1, aes(x = semillas1$Perimetro, y = semillas1$Coeficiente_de_Asimetria, color = semillas1$cluster)) +
+          geom_text(aes(label = cluster), size = 5) +
+          theme_bw() +
+          theme(legend.position = 'none')"
+        return (gm1)
+      } else
+        if(box == "2")    {
+          gm2<-"plot(semillas1$largo,semillas1$ancho)
+          gm2<-ggplot(data =semillas1, aes(largo,ancho))+ geom_point() +   geom_smooth(method = 'lm')"
+          return (gm2)
+        }else
+          if(box == "3")    {
+            gm3<-"gm3<-ggplot(data =semillas1, aes(largo,ancho))+ geom_point() +   geom_smooth()"
+            return (gm3)
+          }else
+            if(box == "4")    {
+              gm4<-"regre_multi_semillas<-lm(data = semillas,semillas$Area~semillas$Perimetro+semillas$largo+semillas$ancho)
+          gm4<-ggplot(data=regre_multi_semillas,aes(x = regre_multi_semillas$fitted.values,y = regre_multi_semillas$residuals))+
+            geom_point() + geom_smooth()"
+              return (gm4)
+            }
+      
     })
   
     output$tablaS6 <- renderTable({
@@ -475,13 +597,56 @@ ggplot(dtModeloR2, aes(x=AHumanitarFam, y=EDanosVivienda)) + geom_point() + ggti
     })
     
     output$plot8 <- renderPlot({
+      box<- input$selectmod
+      if (is.null(box))    {return(NULL)}
+      if(box == "1")    {
+        semillas1<-semillas
+        aaaa<-kmeans(x = semillas1,centers = 3,iter.max = 10,nstart = 30)
+        aaaa
+        semillas1 <- semillas1 %>% mutate(cluster = aaaa$cluster)
+        semillas1 <- semillas1 %>% mutate(cluster = as.factor(cluster),
+                                          #grupo   = as.factor(grupo))
+                                          grupo   = 3)
+        gm1<-ggplot(data = semillas1, aes(x = semillas1$Perimetro, y = semillas1$Coeficiente_de_Asimetria, color = semillas1$cluster)) +
+          geom_text(aes(label = cluster), size = 5) +
+          theme_bw() +
+          theme(legend.position = "none")
         
-        dtModeloR2<-data.frame(dtFinal%>%group_by(DesDpto)%>%summarise(AHumanitarFam=sum(AHumanitarFam),EDanosVivienda=sum(EDanosVivienda)))
+        return (gm1)
+      } else 
+        if(box == "2") {
+          plot(semillas1$largo,semillas1$ancho)
+          
+          gm2<-ggplot(data =semillas1, aes(largo,ancho))+ geom_point() +   geom_smooth(method = "lm")
+
+        return (gm2)
+      } else
+        if(box == "3") {
+          gm3<-ggplot(data =semillas1, aes(largo,ancho))+ geom_point() +   geom_smooth()
+        return (gm3)
+      } else
+        if(box == "4")  {
+          regre_multi_semillas<-lm(data = semillas,semillas$Area~semillas$Perimetro+semillas$largo+semillas$ancho)
+          gm4<-ggplot(data=regre_multi_semillas,aes(x = regre_multi_semillas$fitted.values,y = regre_multi_semillas$residuals))+
+            geom_point() + geom_smooth()
+
+        return (gm4)
+        }
+      if(box == "5")  {
+        regre_multi_semillas<-lm(data = semillas,semillas$Area~semillas$Perimetro+semillas$largo+semillas$ancho)
+        gm5<-ggplot(data=regre_multi_semillas,aes(x = regre_multi_semillas$fitted.values,y = regre_multi_semillas$residuals))+
+          geom_point() + geom_smooth()
         
-        return( 
-            
-            ggplot(dtModeloR2, aes(x=AHumanitarFam, y=EDanosVivienda)) + geom_point() + ggtitle("Gráfica de Regresion") + xlab("Ayuda Humanitaria") + ylab("Estimacion de Daños por Vivienda") + geom_smooth(method=lm)
-        )
+        return (gm5)
+      }
+        # dtModeloR2<-data.frame(dtFinal%>%group_by(DesDpto)%>%summarise(AHumanitarFam=sum(AHumanitarFam),EDanosVivienda=sum(EDanosVivienda)))
+        # 
+        # return( 
+        #     
+        #     ggplot(dtModeloR2, aes(x=AHumanitarFam, y=EDanosVivienda)) +
+        #       geom_point() + ggtitle("Gráfica de Regresion") + 
+        #       xlab("Ayuda Humanitaria") + ylab("Estimacion de Daños por Vivienda") + geom_smooth(method=lm)
+        # )
         
     })
     
