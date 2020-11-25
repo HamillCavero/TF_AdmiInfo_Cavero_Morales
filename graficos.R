@@ -17,13 +17,47 @@ qplot(x=pais_natal  ,y=Total,data = q5%>%slice(1:5),geom = "col")+aes(fill= pais
 qplot(x=EDAD   ,y=Total,data = q6,geom = "line")+aes(fill= EDAD )
 
 #grafico del q7
+<<<<<<< HEAD
+ggplot(data = q7, aes(x="", y=q7$Total, fill=SEXO)) +
+=======
 ggplot(data = q7, aes(x="", y=q7$Total, fill=q7$SEXO)) +
+>>>>>>> bfb9cd137eb647b7cc436bdca8fd9537a80d0988
   geom_bar(stat="identity", width=1) +
-  coord_polar("y", start=0)
+  coord_polar("y", start=0)+theme_void()
 
 #grafico del q8
-qplot(x=q8$DIST_CIA   ,y=Total,data = q8,geom = "col")+aes(fill= q8$DIST_CIA )
+qplot(x=DIST_CIA   ,y=Total,data = q8,geom = "col")+aes(fill= DIST_CIA )
 
+#grafico del q9
+ggplot(data = q9, aes(x="", y= Total, fill= DERIVADA_FISCALIA)) +
+  geom_bar(stat="identity", width=1,color="white") +
+  coord_polar("y", start=0)+theme_void()
 
-RColorBrewer::display.brewer.all() 
+#grafico del q10
+qplot(x=SIT_PERSONA  ,y=Total,data = q10,geom = "col")+aes(fill= SEXO)
+
+#grafico del q11
+qplot(x= MES  ,y=Total,data = q11,geom = "col")+aes(fill= MES)+theme_minimal()
+
+#grafico del q12
+qplot(x=EST_CIVIL,y=Total,data = q12)+aes(fill= EST_CIVIL ) +
+  geom_point(size=4, color="#aaaaaa") +
+  theme_minimal()+
+  theme(legend.position = "none") +
+  geom_text(aes(label=q12$Total),hjust=0, vjust=0)
+
+#grafico del q13
+
+qplot(x=Tipo   ,y=Area,data = q13,geom = "boxplot")+theme_classic()+xlab(label = "")
+
+#grafico del q15
+qplot(x= Edad  ,y= total,data = q15,geom = "line")+aes(fill= total)
+
+#grafico del q17
+ggplot(data = q17, aes(x="", y= tot, fill= TIPO_DENUNCIA)) +
+  geom_bar(stat="identity", width=1,color="white") +
+  coord_polar("y", start=0)+theme_void()+
+   geom_text(aes(label = paste(round(tot, digits = 2)
+, "%"), x = 1.3),
+            position = position_stack(vjust = 0.5))
 

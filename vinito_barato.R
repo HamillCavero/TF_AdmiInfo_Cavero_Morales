@@ -75,3 +75,6 @@ reg_semillas1<-abline(lm(semillas1$ancho~semillas1$Perimetro),col="red")
 plot(semillas1$Perimetro,semillas1$Area)
 reg_smlls1<-lm(semillas1$Area~semillas1$Perimetro)
 reg_semillas1<-abline(lm(semillas1$Area~semillas1$Perimetro),col="red")
+
+ggplot(dtModeloR2, aes(x=AHumanitarFam, y=EDanosVivienda)) + geom_point() + ggtitle('Gráfica de Regresion') + xlab('Ayuda Humanitaria por Familia') + ylab('Estimacion de Daños por Vivienda') + geom_smooth(method=lm)
+
