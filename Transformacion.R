@@ -11,7 +11,6 @@ datos_violencia<-borrar_na(datos_violencia)
 datos_violencia<-limpiar_edades(datos_violencia)
 
 #1)Cantidad de casos registrados por año y que sean de modalidad violencia fisica#
-temporal<-datos_violencia
 
 casos_anhos_modalidad<-function(df,anho,modalidad,totdatos)
 {
