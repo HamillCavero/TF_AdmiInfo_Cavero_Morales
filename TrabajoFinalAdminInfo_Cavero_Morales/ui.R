@@ -12,16 +12,12 @@ library("shinythemes")
 library("shinyjs")
 # Define UI for application that draws a histogram
 shinyUI<-fluidPage(
-    
     theme = shinytheme("cyborg"),
     navbarPage( "Proyecto sobre Violencia Familiar-Obtenido de Datos abiertos",
                 tabPanel("Presentacion",fluidRow(
                     column(12,align="center",h3("Universidad Peruana de Ciencias Aplicadas"),
-<<<<<<< HEAD
                            tags$b(h4("-"))),p("Revisa nuesto",a("informe",href="https://github.com/HamillCavero/TF_AdmiInfo_Cavero_Morales/blob/main/InformeTrabajoFinalAdministracion.md"),hr())
-=======
-                           tags$b(h4("proyecto demostracion"))),p("Revisa nuesto",a("informe",href="https://github.com/HamillCavero/TF_AdmiInfo_Cavero_Morales/blob/main/Documentaci%C3%B3n/InformeTrabajoFinalAdministracion.md"),hr())
->>>>>>> 8b94e8793c5690cd06264c48cd5f6f057d7a4442
+
                 )),
                 tabPanel("Recoleccion",
                 sidebarLayout (
