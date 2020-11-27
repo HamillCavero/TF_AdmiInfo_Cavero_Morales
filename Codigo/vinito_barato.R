@@ -43,14 +43,14 @@ nn31 <- as.numeric(levels(nn3))[nn3]
 
 
 plot(nn3)
-nn3[,1]
+#nn3[,1]
 sum(as.integer(testSemillas==1))
 sum(as.integer(testSemillas==2))
 sum(as.integer(testSemillas==3))
 
 qplot(nn3)
-qplot(nn31)
-qplot(testSemillas$Tipo)
+#qplot(nn31)
+#qplot(testSemillas$Tipo)
 
 plot(testSemillas$Tipo)
 ggplot(data = semillas,aes(x = semillas$Tipo, y = semillas$Area))+geom_col(stat="identity", width=1,color="white")
@@ -77,7 +77,7 @@ aaaa
 
 ####
 bbbb <- kmeans(semillas[,c(1,6)], 3, iter.max = 1000, nstart = 10)
-dataset$cluster <- kmeans$cluster
+#dataset$cluster <- kmeans$cluster
 semillas2<-semillas
 semillas2$cluster<-bbbb$cluster
 ggplot() + geom_point(aes(x = semillas2$Area, y = semillas2$Coeficiente_de_Asimetria, color = cluster), data = semillas2, size = 2) +

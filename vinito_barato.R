@@ -43,7 +43,7 @@ nn31 <- as.numeric(levels(nn3))[nn3]
 
 
 plot(nn3)
-nn3[,1]
+#nn3[,1]
 sum(as.integer(testSemillas==1))
 sum(as.integer(testSemillas==2))
 sum(as.integer(testSemillas==3))
