@@ -697,4 +697,22 @@ datosobtenidos_porfecha<-function(df,fecha)
      datos_violencia[1:150,1:10]
     })
     
+    datasetInput<-reactive({
+    switch(input$dataset,"violencia"=datos_violencia,"semillas"=semillas)  
+      
+    })
+    
+    output$table<-renderTable({
+      datasetInput()
+    })
+    
+    output$descargar <-downloadHandler(
+      filename = function(){
+        paste(input$dataset,".csv",sep = "")
+      },
+      content = function(file){
+        write.csv(datasetInput(),file,row.names = FALSE)
+      }
+    )
+    
     })
