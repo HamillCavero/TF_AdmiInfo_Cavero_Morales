@@ -3,7 +3,7 @@ library(shiny)
 library(corrplot)
 library(ggplot2)
 library(factoextra)
-
+library(rsconnect)
 options(shiny.maxRequestSize=103*1024^2)
 shinyServer(function(input, output) {
     getwd()
