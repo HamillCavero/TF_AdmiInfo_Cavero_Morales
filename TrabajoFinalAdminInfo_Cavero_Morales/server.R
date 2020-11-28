@@ -3,11 +3,19 @@ library(shiny)
 library(corrplot)
 library(ggplot2)
 library(factoextra)
+library(DMwR)
+library(lubridate)
+library(dplyr)
 library(rsconnect)
+#rsconnect::setAccountInfo(name='aelvismoralestf', token='1DA2F578FB3C1C2696C505218E6BEC69', secret='0KEdkdlxwDWGs82VwbNLEzb2IWiLJj+OOZrnASFR')
+source("GeneralScript.R")
+
+
+
 options(shiny.maxRequestSize=103*1024^2)
 shinyServer(function(input, output) {
     getwd()
-    
+    datos_violencia
     output$tablaS2 <- renderTable({
         tablaS1 <- input$file1
         if (is.null(tablaS1))
@@ -669,11 +677,11 @@ datosobtenidos_porfecha<-function(df,fecha)
         
     })
     
-    observeEvent(input$download,
-    {
-      write.csv(datos_violencia,"datosprocesados.csv")
+    #observeEvent(input$download,
+    #{
+    #  write.csv(datos_violencia,"datosprocesados.csv")
         
-    })
+    #})
     observeEvent(input$control2, {
         
         if(input$control2==TRUE)

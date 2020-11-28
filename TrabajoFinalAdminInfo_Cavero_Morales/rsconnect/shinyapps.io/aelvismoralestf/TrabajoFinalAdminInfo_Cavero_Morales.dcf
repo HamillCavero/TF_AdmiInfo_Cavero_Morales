@@ -5,8 +5,9 @@ account: aelvismoralestf
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 3313269
-bundleId: 3914215
+bundleId: 3914427
 url: https://aelvismoralestf.shinyapps.io/TrabajoFinalAdminInfo_Cavero_Morales/
-when: 1606516885.01121
+when: 1606523142.83405
 asMultiple: FALSE
 asStatic: FALSE
+ignoredFiles: datasets/BackupDatosViolencia.Rda|datasets/DF_violencia.Rda|datasets/winequality-white.csv

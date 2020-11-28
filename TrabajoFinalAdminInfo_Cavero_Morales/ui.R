@@ -39,7 +39,7 @@ shinyUI<-fluidPage(
                                        h4("Unir Dataset's Separados"),
                                        hr(),checkboxInput("control1",
                                                           "Mostrar Codigo", FALSE),hr(),
-                                       actionButton("download",'Descargar datos Procesados'),
+                                       actionButton("download",'-'),
                                        verbatimTextOutput("consulta1"),tableOutput("tablaS5"))))
                 ,tabPanel('Consultas Exploracion',
                           navlistPanel(
