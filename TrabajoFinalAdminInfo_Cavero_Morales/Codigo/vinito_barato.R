@@ -42,22 +42,16 @@ nn31 <- as.numeric(levels(nn3))[nn3]
 
 
 
-#plot(nn3)
-#nn3[,1]
+
 sum(as.integer(testSemillas==1))
 sum(as.integer(testSemillas==2))
 sum(as.integer(testSemillas==3))
 
-#qplot(nn3)
-#qplot(nn31)
-#qplot(testSemillas$Tipo)
 
-#plot(testSemillas$Tipo)
 ggplot(data = semillas,aes(x = semillas$Tipo, y = semillas$Area))+geom_col(stat="identity", width=1,color="white")
-#plot(nn31)
-class(nn31[])
 
-#plot(semillas)
+
+
 ggplot(data =semillas,aes(x = semillas$largo,y = semillas$ancho,color=semillas$Tipo ) )+geom_jitter()+theme(legend.position = "none")
 
 
@@ -100,7 +94,7 @@ semillas1 <- semillas1 %>% mutate(cluster = as.factor(cluster),
 #colnames(datos_violencia)
 
 
-#plot(semillas1$largo,semillas1$ancho)
+
 reg_semillas1<-abline(lm(semillas1$ancho~semillas1$largo),col="red")
 #ggplot(data =semillas1, aes(largo,ancho))+ geom_point() +   geom_smooth()
 #ggplot(data =semillas1, aes(largo,ancho))+ geom_point() +   geom_smooth(method = "lm")
