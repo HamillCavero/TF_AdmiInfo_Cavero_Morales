@@ -63,7 +63,7 @@ table(testSemillas[,'Tipo'],nn5)
 
 library(stats)
 
-plot(semillas$Perimetro,semillas$Coeficiente_de_Asimetria)
+#plot(semillas$Perimetro,semillas$Coeficiente_de_Asimetria)
 semillas1<-semillas
 
 aaaa<-kmeans(x = semillas1,centers = 3,iter.max = 10,nstart = 30)
@@ -95,7 +95,7 @@ semillas1 <- semillas1 %>% mutate(cluster = as.factor(cluster),
 
 
 
-reg_semillas1<-abline(lm(semillas1$ancho~semillas1$largo),col="red")
+#reg_semillas1<-abline(lm(semillas1$ancho~semillas1$largo),col="red")
 #ggplot(data =semillas1, aes(largo,ancho))+ geom_point() +   geom_smooth()
 #ggplot(data =semillas1, aes(largo,ancho))+ geom_point() +   geom_smooth(method = "lm")
 

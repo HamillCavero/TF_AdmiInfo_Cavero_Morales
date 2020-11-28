@@ -16,7 +16,7 @@ library(factoextra)
 library(DMwR)
 library(lubridate)
 library(dplyr)
-setwd("C:/Users/Asus/Desktop/Admistracion de la Info/TF_AdmiInfo_Cavero_Morales/TrabajoFinalAdminInfo_Cavero_Morales")
+setwd("TrabajoFinalAdminInfo_Cavero_Morales")
 source("GeneralScript.R")
 
 ```
@@ -287,7 +287,7 @@ q17
 ```
 
 ```{r}
-# 18) Nos muestra todos los datos de la columna, buscando por una fecha especifica de búsqueda.
+# 18) Nos muestra los datos relevantes de la columna, buscando por una fecha especifica de búsqueda.
 
 datosobtenidos_porfecha<-function(df,fecha)
 {
@@ -295,6 +295,7 @@ datosobtenidos_porfecha<-function(df,fecha)
 }
 q18<-datosobtenidos_porfecha(datos_violencia,'2016-12-31')
 #Muestra de Valores:
-q18
+q18[,c(8,7,15,29,30,20)]
+
 ```
 
