@@ -16,7 +16,7 @@ shinyUI<-fluidPage(
     navbarPage( "Proyecto sobre Violencia Familiar-Obtenido de Datos abiertos",
                 tabPanel("Presentacion",fluidRow(
                     column(12,align="center",h3("Universidad Peruana de Ciencias Aplicadas"),
-                           tags$b(h4("-"))),p("Revisa nuesto",a("informe",href="https://github.com/HamillCavero/TF_AdmiInfo_Cavero_Morales/blob/main/InformeTrabajoFinalAdministracion.md"),hr())
+                           tags$b(h4("-"))),p("Revisa nuesto",a("informe",href="https://github.com/HamillCavero/TF_AdmiInfo_Cavero_Morales/blob/main/Documentaci%C3%B3n/InformeTrabajoFinalAdministracion.md"),hr())
 
                 )),
                 tabPanel("Recoleccion",
@@ -39,7 +39,6 @@ shinyUI<-fluidPage(
                                        h4("Unir Dataset's Separados"),
                                        hr(),checkboxInput("control1",
                                                           "Mostrar Codigo", FALSE),hr(),
-                                       actionButton("download",'-'),
                                        verbatimTextOutput("consulta1"),tableOutput("tablaS5"))))
                 ,tabPanel('Consultas Exploracion',
                           navlistPanel(
@@ -110,7 +109,7 @@ shinyUI<-fluidPage(
                                        verbatimTextOutput("consulta6"),hr(), plotOutput("plot8"))  ) ),
                 tabPanel("Descargar",sidebarLayout(sidebarPanel(selectInput("dataset","Escoge un dataset:",choices = c("violencia","semillas"),
                                                                             ),downloadButton("descargar","Descargar")),
-                                                   mainPanel(tableOutput("table"))))
+                                                   mainPanel(tableOutput("table")))),tabPanel("Correos",textInput("text",label = h3("Ingrese su Correo"),value="Ingrese Correo"),hr(),h4("Se le enviara un reporte resumen de las funciones aplicadas"),hr(),fluidRow(column(3,verbatimTextOutput("value"))),actionButton("enviar",'Enviar'))
     
 ))
 

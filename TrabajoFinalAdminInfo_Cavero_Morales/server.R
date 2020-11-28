@@ -7,9 +7,10 @@ library(DMwR)
 library(lubridate)
 library(dplyr)
 library(rsconnect)
+library(rJava)
+library(mailR)
 #rsconnect::setAccountInfo(name='aelvismoralestf', token='1DA2F578FB3C1C2696C505218E6BEC69', secret='0KEdkdlxwDWGs82VwbNLEzb2IWiLJj+OOZrnASFR')
 source("GeneralScript.R")
-
 
 
 options(shiny.maxRequestSize=103*1024^2)
@@ -527,8 +528,8 @@ datosobtenidos_porfecha<-function(df,fecha)
                     return(gp12)
                   } else  { 
                           if(box=="13")  {
-                      gp13<-qplot(x= Edad  ,y= total,data = q15,geom = "line")+aes(fill= total)
-                      return(gp13)
+                      #gp13<-qplot(x= Edad  ,y= total,data = q15,geom = "line")+aes(fill= total)
+                      #return(gp13)
                     } else  { 
                             if(box=="14")  {
                         gp14<-ggplot(data = q17, aes(x="", y= tot, fill= TIPO_DENUNCIA)) +
@@ -722,5 +723,14 @@ datosobtenidos_porfecha<-function(df,fecha)
         write.csv(datasetInput(),file,row.names = FALSE)
       }
     )
+    output$value<-renderPrint({
+        input$text
+      }
+      )
+    observeEvent(input$enviar,
+    {
+     corro<-input$text
+       mail(corro[1])
+    })
     
     })
