@@ -299,3 +299,172 @@ q18[,c(8,7,15,29,30,20)]
 
 ```
 
+```{r}
+# 19) Deseamos buscar las personas hechos por la modalidad de Violencia física y psicológica ocurridos en Lima provenientes de chile que sean del género masculino.
+
+query19<-function(modalidad,departamento,pais,tipo_denuncia,genero){
+  return(datos_violencia%>%filter(datos_violencia$MODALIDAD==modalidad & datos_violencia$DPTO_CIA==departamento & datos_violencia$pais_natal==pais & datos_violencia$TIPO_DENUNCIA==tipo_denuncia &datos_violencia$SEXO==genero))
+}
+q19<-query19("VIOLENCIA FISICA Y PSICOLOGICA","LIMA","CHILE","DENUNCIA","M")
+q19[,c(3,29,30,33,35)]
+```
+
+```{r}
+# q20) En este query podemos ver la cantidad de casos resueltos y por resolver agrupados por la provincia en la que se realizó la denuncia. Los casos por resolver representan un porcentaje mucho menor, esto es una señal positiva.
+
+q20<-datos_violencia%>%group_by(datos_violencia$PROV_CIA,datos_violencia$ESTADO_DEN)%>%summarise(Total=n())%>%arrange(desc(Total))
+q20
+```
+
+
+
+```{r}
+# grafico 1) Nos muestra la proporción que existe de los diferentes tipos de modalidades de agresión que son registrados en las diferents comisarías alrededor del Perú. De estas las más denunciadas son las modalidades de Violencia Física y psicológica, Violencia Física y Violencia Física psicológica
+qplot(x=reorder(Modalidad,Cantidad_Casos),y=Cantidad_Casos,data = q2,geom = "col")+aes(fill= Modalidad)
+
+```
+
+```{r}
+# grafico 2) En este gráfico podemos observar el total de denuncias realizadas en los diferents departamento del Perú. Con esto podemos ver que Lima tiene una mayor cantidad de denuncias y sobrepasa a los demás departamentos por un amplio margen, teniendo una diferencia de mas de 40000 con el segundo lugar que es Arequipa"
+qplot(x=Total,y=reorder(DPTO_CIA,Total),data = q3,geom = "col")+aes(fill= DPTO_CIA)+ylab("")
+```
+
+```{r}
+# grafico 3) En el gráfico podemos observar el estado de las personas que han sido registradas en las diferentes denuncias policiales, aquí vemos que de las cinco el denunciado y denunciante son las dos más sobresalientes, un resultado esperado tomando el cuenta las definiciones de las otras tres opciones. Los denunciados y denunciantes ocupan el 95% de las denuncias realizadas.
+qplot(x=reorder(SIT_PERSONA,Total),y=Total,data = q4%>%slice(1:5),geom = "col")+aes(fill= SIT_PERSONA)
+# comprobar el porcentaje
+#(q4$Total[2]+q4$Total[1])/sum(q4$Total)
+
+```
+
+```{r}
+# grafico 4) En este gráfico podemos observar los cuatro países más involucrados con las denuncias después del Perú. Incluso en el año que se realizó el informe los inmigrantes del país de Venezuela ya empiezan a tener un impacto muchas veces negativo para la seguridad, pero siendo seguidos por los colombianos. Se ignora al Perú en este gráfico ya que lo altera de forma que no se pueden apreciar los demás países.
+qplot(x=reorder(pais_natal,Total)  ,y=Total,data = q5%>%slice(2:5),geom = "col")+aes(fill= pais_natal)
+```
+
+```{r}
+# grafico 5) En el gráfico podemos ver un rango de las edades de las personas relacionadas a las denuncias, se observa que el pico de casos se genera ente los 25 a 30 años, edad común en familias jóvenes.
+qplot(x=EDAD   ,y=Total,data = q6,geom = "line")+aes(fill= EDAD )
+```
+
+```{r}
+# grafico 6) Primer gráfico relacionado al género de las personas relacionadas a las denuncias, si bien parece parejo se nota que el genero femenino tiene mayor cantidad de casos.
+ ggplot(data = q7, aes(x="", y=q7$Total, fill=SEXO)) +
+   geom_bar(stat="identity", width=1) +
+  coord_polar("y", start=0)+theme_void()
+
+```
+
+```{r}
+# grafico 7) Gráfico relacionado al gráfico N°2, como observamos en ese Lima era el departamento con mayor número de casos, en este gráfico observamos los 5 distritos con mayor cantidad de casos. En los primero lugares predominan  zonas que son consideradas muy peligrosas en Lima y el Callao.
+qplot(x=reorder( DIST_CIA,Total)   ,y=Total,data = q8,geom = "col")+aes(fill= DIST_CIA )
+
+```
+
+```{r}
+# grafico 8) En el gráfico se aprecia la proporción del destino de la mayoría de los casos denunciados, el juzgado de familia es el número uno siendo el destino de casi tres cuartas partes de los casos totales.
+ggplot(data = q9, aes(x="", y= Total, fill= DERIVADA_FISCALIA)) +
+  geom_bar(stat="identity", width=1,color="white") +
+  coord_polar("y", start=0)+theme_void()
+```
+
+```{r}
+# grafico 9) Gráfico relevante con el gráfico 6, en este podemos observar que el porcentaje previo relacionado a los denunciantes y denunciados está fuertemente polarizado, siendo los hombres los denunciados y las mujeres las denunciantes. Esto demuestra que aún vivimos en una sociedad muy insegura para el género femenino.
+qplot(x=SIT_PERSONA  ,y=Total,data = q10,geom = "col")+aes(fill= SEXO)
+
+```
+
+```{r}
+# grafico 10) Grafico del numero de casos ordenados por mes del año. Podemos ver que mientras el año acaba el númejor de casos aumenta, esto puede deberse a diferentes factores como el fin del año o las celebraciones navideñas.
+qplot(x= reorder(MES,Total)  ,y=Total,data = q11,geom = "col")+aes(fill= MES)+theme_minimal()
+
+```
+
+```{r}
+# grafico 11) Relación de estado civil con la cantidad de denuncias. Las personas viudas presentan menos casos mientras que los Solteros y Casados suman mas de la mitad.
+qplot(x=reorder( EST_CIVIL,Total),y=Total,data = q12)+aes(fill= EST_CIVIL ) +
+  geom_point(size=4, color="#aaaaaa") +
+  theme_minimal()+
+  theme(legend.position = "none") +
+  geom_text(aes(label=q12$Total),hjust=0, vjust=0)+
+  xlab("Estado Civil")
+```
+
+```{r}
+# grafico 12) Podemos ver gráficos de caja donde se aprecia los valores del area de las semillas dependiendo de su tipo, el tipo dos o Rosa tiene el area promedio mas grande.
+qplot(x=reorder(Tipo,Area)   ,y=Area,data = q13,geom = "boxplot")+theme_classic()+xlab(label = "")+aes(group= Tipo)
+
+```
+
+```{r}
+# grafico 13) Grafico que nos muestra el porcentaje de cada tipo de denuncias hechas por personas de 18 años de edad, elegimos esta edad ya que aquí empieza la mayoría de edad en el Perú. El tipo de denuncia mas popular fue "Denuncia".
+ggplot(data = q17, aes(x="", y= tot, fill= TIPO_DENUNCIA)) +
+  geom_bar(stat="identity", width=1,color="white") +
+  coord_polar("y", start=0)+theme_void()+
+   geom_text(aes(label = paste(round(tot, digits = 2)
+, "%"), x = 1.3),
+            position = position_stack(vjust = 0.5))
+
+```
+
+```{r}
+# grafico 14) Aplicamos el kmean a nuestro datos de las semillas, elegimos que se agrupen en 3 ya que sabemos de antemano que es el numero de tipos de semillas.
+semillas1<-semillas
+semi_kmean<-kmeans(x = semillas1,centers = 3,iter.max = 10,nstart = 30)
+semillas1 <- semillas1 %>% mutate(cluster = semi_kmean$cluster)
+semillas1 <- semillas1 %>% mutate(cluster = as.factor(cluster),
+                                  #grupo   = as.factor(grupo))
+                                  grupo   = 3)
+gm1<-ggplot(data = semillas1, 
+            aes(x = Perimetro,
+                y =Coeficiente_de_Asimetria,
+                color =cluster)) +
+  geom_text(aes(label = cluster), size = 5) +
+  theme_bw() +
+          theme(legend.position = "none")+xlab("Perimetro")+ylab("Coeficiente de asimetria")
+gm1
+```
+
+```{r}
+# grafico 15) Aplicación de la regresión lineal, usamos el ancho y largo para este caso. Se puede observar que ambos valores son directamente proporcionales.
+
+gm2<-ggplot(data =semillas1, aes(largo,ancho))+ geom_point() +   geom_smooth(method = "lm")
+gm2
+
+```
+
+```{r}
+# grafico 16) Regresión multivariada, en este caso Buscamos hallar el área de las semillas con respecto a su largo ancho y perímetro. Estos valores los elejimos ya que para calcular el area de un objeto estas serían las variables ideales. 
+ 
+regre_multi_semillas<-lm(data = semillas,semillas$Area~semillas$Perimetro+semillas$largo+semillas$ancho)
+gm4<-ggplot(data=regre_multi_semillas,aes(x = regre_multi_semillas$fitted.values,y = regre_multi_semillas$residuals))+
+            geom_point() + geom_smooth()
+  layout(matrix(c(1,2,3,4),2,2))
+  plot(regre_multi_semillas)
+
+
+gm4
+```
+
+```{r}
+# grafico 17) Usamos el Knn para predecir los tipos de semillas. Se puede apreciar una diferencia en los etiquetados con respecto al kmeans, ya que algunas semillas son afectadas por sus vecinos y no por las operaciones del kmeans
+idxs <- sample(1:nrow(semillas),as.integer(0.7*nrow(semillas)))
+trainSemillas <- semillas[idxs,]
+testSemillas <- semillas[-idxs,]
+        
+nn3 <- kNN(Tipo ~ .,trainSemillas,testSemillas,norm=FALSE,k=3)
+nn31 <- as.numeric(levels(nn3))[nn3]
+gm7<-testSemillas
+gm7$knn<-nn31
+
+ggplot(data = gm7, 
+            aes(x = Perimetro,
+                y =Coeficiente_de_Asimetria,
+                color =knn)) +
+  geom_text(aes(label = knn), size = 5) +
+  theme_bw() +
+          theme(legend.position = "none")+xlab("Perimetro")+ylab("Coeficiente de asimetria")
+
+
+```
+
