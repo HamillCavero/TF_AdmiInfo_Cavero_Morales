@@ -54,7 +54,7 @@ relacion_denuncia<-function(df,cant_top)
   }
 }
 
-q4<-relacion_denuncia(datos_violencia,0)
+q4<-relacion_denuncia(datos_violencia,5)
 
 #5 Cantidad de casos segun paises
 
